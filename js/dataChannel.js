@@ -116,8 +116,6 @@ receiveChannel.onclose = handleReceiveChannelStateChange;
 function handleMessage(event) {
 log('Received message: ' + event.data);
 document.getElementById("dataChannelReceive").value = event.data;
-Institut National des Postes et Télécommunications 2020-2021
-Systèmes temps réel et embarqués Page 6/10
 document.getElementById("dataChannelSend").value = '';
 }
 function handleSendChannelStateChange() {
