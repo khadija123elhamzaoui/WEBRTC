@@ -19,12 +19,17 @@
         startButton.onclick = createConnection;
         sendButton.onclick = sendData;
         closeButton.onclick = closeDataChannels;
-        
+
         var sendData= function(){
-            var text = document.getElementById('sendButton').value;
+            var text = document.getElementById('dataChannelSend').value;
             socket.emit('chat message',text);
             console.log('sent data :' + text);
         }
+        
+        var receive=function(msg) {
+            document.getElementById('dataChannelReceive').append(msg);            
+        }
+
     </script>
     <textarea rows="5" cols="50" id="dataChannelSend" disabled placeholder="
     1: Press Start; 2: Enter text; 3: Press Send."></textarea>
