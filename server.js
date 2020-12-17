@@ -1,21 +1,21 @@
-var app=require('express')();
-var http=require('http').Server(app);
-var io=require('socket.io')(http);
+const express = require('express');
+const http = require('http');
+const WebSocket = require('ws');
 
-app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/appWebsocket.html');
-});
+const port = 6969;
+const server = http.createServer(express);
+const wss = new WebSocket.Server({ server })
 
-io.on('connection', function(socket){
-    console.log('a user is connect');
-    socket.on('disconnect', function(){
-        console.log("a user is disconnect");
+wss.on('connection', function connection(ws) {
+  ws.on('message', function incoming(data) {
+    wss.clients.forEach(function each(client) {
+      if (client !== ws && client.readyState === WebSocket.OPEN) {
+        client.send(data);
+      }
     })
-    socket.on('chat message', function(msg){
-        console.log("message reçu"+ msg);
-        io.emit('chat message', msg);
-    })
+  })
 })
-http.listen(8080,function(){
-    console.log(" Server running on 8080");
+
+server.listen(port, function() {
+  console.log(`Server is listening on ${port}!`)
 })
