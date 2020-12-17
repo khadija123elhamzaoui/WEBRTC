@@ -13,9 +13,7 @@ wss.on('connection', function connection(ws) {
         client.send(data);
       }
     })
-  })
-})
-
+:})
 server.listen(port, function() {
   console.log(`Server is listening on ${port}!`)
 })
